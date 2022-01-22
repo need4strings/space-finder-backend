@@ -1,0 +1,1 @@
+// Lambda - reusable piece of code
