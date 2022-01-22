@@ -328,10 +328,77 @@
         "aws:asset:property": "Code"
       }
     },
+    "helloLambdaNodeJsServiceRole17C143C3": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "SpaceFinder/helloLambdaNodeJs/ServiceRole/Resource"
+      }
+    },
+    "helloLambdaNodeJs14E63891": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+          },
+          "S3Key": "8f7d02ae83a1a4785a70a357635f129c99c2360b3b57dcbaae9f2d7fb9ebc8b6.zip"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "helloLambdaNodeJsServiceRole17C143C3",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+          }
+        },
+        "Handler": "index.handler",
+        "Runtime": "nodejs14.x"
+      },
+      "DependsOn": [
+        "helloLambdaNodeJsServiceRole17C143C3"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "SpaceFinder/helloLambdaNodeJs/Resource",
+        "aws:asset:path": "asset.8f7d02ae83a1a4785a70a357635f129c99c2360b3b57dcbaae9f2d7fb9ebc8b6",
+        "aws:asset:is-bundled": true,
+        "aws:asset:property": "Code"
+      }
+    },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQQU/DMAyFf8vumaFMQly7od0QaHCf3MQUr01SNQlTVfW/4yygjZO/9+Q823mAJ7hf4TmstenWPTcwv0fUnRLrOOPALUY64wTzgUKsB1a7T3eDtdY+uaieaej9ZElQ3BslaS1lr4A89WnUtMVwFb+ZhV8ofnmTrUKLYrQy3velT+qierSNQZjFeKPRcgjsndonp2MGsf94UWZyaL2Ryz6wKSEXWFTYHDEEigHqXETDNumOYt5uyY2vKQ4pXhe99OVL2LX/thbeeWe4jHTeEJzC3Xf1CNUGqtUpMK9H+Si2BIdSfwA0Hb+1ewEAAA=="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQzU7DMBCEn6V31xAqIa5pETd+VLhHG3sJTmI7ytpUUZR3Zx2DUk7z7cie9fhOPsjbHVxor3S3700t5/cAqhNsVTMMpoGAF5jkfEYK5WDE6dNdYamUjy6IRxx6P1lkZPdq4rQGk5eBr/o4KjwCbcNvZuZnDF9eJyvTIgxYXu/7fI51ET3YWoOc2XjD0Roi4514ik6FBGz/8SL05MB6zc0+oM4hKyyCDhUQYSBZJuFZHqPqMKyvyzsq5zW2JF9W2VI55TWGIYatxRqSahrX/KvEfPJOm3wzBcqWbr6Le1kcZLFryZj9yL9oLMpz1h9gn7lbmAEAAA=="
       },
       "Metadata": {
         "aws:cdk:path": "SpaceFinder/CDKMetadata/Default"
